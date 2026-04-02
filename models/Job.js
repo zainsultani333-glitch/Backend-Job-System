@@ -5,8 +5,17 @@ const jobSchema = new mongoose.Schema({
   description: String,
   company: String,
   location: String,
-  salary: Number,
-  status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
+  salary: {
+    min: { type: Number },
+    max: { type: Number },
+    currency: { type: String, default: "PKR" },
+    isNegotiable: { type: Boolean, default: false }
+  },
+  status: {
+    type: String,
+    enum: ["pending", "approved", "rejected"], // ya jo tum chaho
+    default: "pending"
+  },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 }, { timestamps: true });
 
